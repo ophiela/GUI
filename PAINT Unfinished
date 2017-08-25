@@ -1,0 +1,71 @@
+from tkinter import *
+from tkinter import ttk
+from tkinter.ttk import *
+import math
+import random
+
+root = Tk()
+root.config(background = 'grey')
+root.geometry('800x800')
+style = ttk.Style(root)
+style.configure('TButton', font='Nueva 14',foreground='maroon', padding=15)
+style.configure('.', relief= GROOVE, borderwidth = 3, background = 'white')
+
+#Create Menu
+root.option_add('*tearOff', False)
+menu = Menu(root)
+root.config(menu = menu)
+File = Menu(menu)
+menu.add_cascade(menu = File, label = 'File')
+File.add_command(label = 'New', command = lambda: print('new file'))
+File.add_separator()
+File.add_command(label = 'Open...', command = lambda: print('Open...'))
+File.add_separator()
+File.add_command(label = 'Save', command = lambda: print('Saving'))
+File.entryconfig('New', accelerator = 'Ctrl + N')
+File.entryconfig('Open...', accelerator = 'Ctrl + O')
+File.entryconfig('Save', accelerator = 'Ctrl + S')
+
+
+#create navigate tool menu and canvas
+navigate = ttk.Frame(root)
+navigate.grid(row = 0, column = 0, sticky = 'nw')
+navigate.config(relief = GROOVE)
+navigate.config(padding = (15, 15))
+drawPad = Canvas(root)
+drawPad.grid(row = 0, column = 1)
+
+def callback1():
+    drawPad.delete('all')
+
+
+def callback2():
+    a = random.randint(0, 4)
+    cursorPic = ['mouse', 'arrow', 'star', 'pencil', 'spraycan']
+    drawPad.config(cursor = cursorPic[a])
+
+clear = ttk.Button(navigate, text = 'Clear',
+                   command = callback1).grid(padx = 15, pady = 15)
+cursor = ttk.Button(navigate, text = 'Cursor', command = callback2).grid(padx = 15, pady = 15)
+
+
+drawPad.config(height = 740, width = 680, cursor = "pencil")
+scrollbar = ttk.Scrollbar(root, orient = VERTICAL)
+scrollbar.grid( row =0, column = 6, sticky = 'ns')
+scrollbar.config(command = drawPad.yview)
+
+
+def mouse_move(event):
+    drawPad.create_oval(event.x, event.y, (event.x + 1/2),
+                        (event.y + 1/2), outline = 'blue', width = 10)
+
+drawPad.bind('<B1-Motion>', mouse_move)
+
+def mouse_dots(event):
+    drawPad.create_oval(event.x, event.y, (event.x + 1/2),
+                        (event.y + 1/2), fill = 'blue', outline = 'blue',
+                        width = 6)
+
+drawPad.bind('<ButtonRelease-1>', mouse_dots)
+
+root.mainloop()
