@@ -1,0 +1,96 @@
+from tkinter import *
+from tkinter import ttk
+from tkinter.ttk import *
+import math
+import random
+
+
+root = Tk()
+root.config(background = 'grey')
+root.geometry('800x800')
+style = ttk.Style(root)
+style.configure('TButton', font='Nueva 14',foreground='maroon', padding=15)
+style.configure('.', relief= GROOVE, borderwidth = 3, background = 'white')
+
+#Create Menu
+root.option_add('*tearOff', False)
+menu = Menu(root)
+root.config(menu = menu)
+File = Menu(menu)
+
+def controls():
+    print("""  Hold down left mouse button to draw,
+    click the left mouse button to create dots,
+    and click the right mouse button to generate a small line.""")
+    
+menu.add_cascade(menu = File, label = 'File')
+Help = menu.add_cascade(menu = Menu, label = 'Help', command = controls)
+File.add_command(label = 'New', command = lambda: print('new file'))
+File.add_separator()
+File.add_command(label = 'Open...', command = lambda: print('Open...'))
+File.add_separator()
+File.add_command(label = 'Save', command = lambda: print('Save'))
+File.entryconfig('New', accelerator = 'Ctrl + N')
+File.entryconfig('Open...', accelerator = 'Ctrl + O')
+File.entryconfig('Save', accelerator = 'Ctrl + S')
+
+
+#create navigate tool menu and canvas
+navigate = ttk.Frame(root)
+navigate.grid(row = 0, column = 0, sticky = 'nw')
+navigate.config(relief = GROOVE)
+navigate.config(padding = (15, 15))
+drawPad = Canvas(root)
+drawPad.grid(row = 0, column = 1)
+wid = 10
+
+def mouse_move(event):
+    drawPad.create_oval(event.x, event.y, (event.x + 1/2),
+                        (event.y + 1/2), outline = 'blue', width = wid)
+
+drawPad.bind('<B1-Motion>', mouse_move)
+
+def mouse_dots(event):
+    drawPad.create_oval(event.x, event.y, (event.x + 1/2),
+                        (event.y + 1/2), fill = 'blue', outline = 'blue',
+                        width = wid)
+
+drawPad.bind('<ButtonRelease-1>', mouse_dots)
+
+def fine_draw(event):
+    drawPad.create_line(event.x, event.y, (event.x + 180),(event.y),
+                        fill = 'blue', width = 5)
+
+drawPad.bind('<ButtonRelease-3>', fine_draw)
+
+def callback1():
+    drawPad.delete('all')
+
+
+def callback2():
+    a = random.randint(0, 14)
+    cursorPic = ['mouse', 'arrow', 'star', 'pencil', 'spraycan',
+                 'shuttle', 'spider', 'coffee_mug', 'gumby', 'heart',
+                 'hand', 'fleur', 'cross', 'clock', 'trek']
+    drawPad.config(cursor = cursorPic[a])
+    
+def callback3():
+    b = random.randint(0, 3)
+    canvasColor = ['yellow', 'red', 'brown', 'black']
+    drawPad.config(background = canvasColor[b])
+    
+clear = ttk.Button(navigate, text = 'Clear',
+                   command = callback1).grid(padx = 15, pady = 15)
+cursor = ttk.Button(navigate,
+                    text = 'Cursor', command = callback2).grid(padx = 15, pady = 15)
+yellow = ttk.Button(navigate,
+                    text = 'Canvas Color', command = callback3).grid(padx = 15, pady = 15)
+
+drawPad.config(height = 740, width = 680, cursor = "pencil")
+scrollbar = ttk.Scrollbar(root, orient = VERTICAL)
+scrollbar.grid( row =0, column = 6, sticky = 'ns')
+scrollbar.config(command = drawPad.yview)
+
+
+
+root.mainloop()
