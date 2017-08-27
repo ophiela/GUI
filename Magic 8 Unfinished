@@ -1,0 +1,36 @@
+from tkinter import *
+from tkinter import ttk
+import math
+
+
+root = Tk()
+
+#Background and Magic 8 Ball
+foreground = Canvas(root, background = 'white')
+foreground.pack()
+foreground.config(width = 600, height = 600)
+eightBall = ttk.Frame(foreground)
+ball = foreground.create_oval(50, 50, 550, 550, fill = 'black')
+outline = foreground.create_oval(125, 100, 470, 440, fill = 'black',
+                                 outline = 'white', width = 6)
+center = foreground.create_polygon(300,100, 150, 350, 450, 350, fill = 'white')
+
+#Buttons and Methods
+
+def shake():
+    if not eightBall.should_stop:
+        eightBall.draw_one_frame()
+        eightBall.stop_id(100, eightBall.animate)
+    else:
+        eightBall.should_stop = True
+
+def stop():
+    eightBall.should_stop = True
+
+shakeBall = ttk.Button(root,
+                       text = 'Shake', command = shake).pack(side = BOTTOM,
+                                                             ipady = 5, ipadx =6)
+stopBall = ttk.Button(root,
+                      text = 'Stop', command = stop).pack(side = BOTTOM,
+                                                          ipady = 5, ipadx = 6)
+
