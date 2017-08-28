@@ -1,0 +1,59 @@
+from tkinter import *
+from tkinter import ttk
+from tkinter import messagebox
+import math
+import random
+
+
+root = Tk()
+
+#Background and Magic 8 Ball
+foreground = Canvas(root, background = 'white')
+foreground.pack()
+foreground.config(width = 600, height = 600)
+eightBall = ttk.Frame(foreground)
+ball = foreground.create_oval(50, 50, 550, 550, fill = 'black')
+outline = foreground.create_oval(125, 100, 470, 440, fill = 'black',
+                                 outline = 'white', width = 6)
+center = foreground.create_polygon(300,100, 150, 350, 450, 350, fill = 'white')
+
+#Buttons and Methods
+a = random.randrange(0,3)
+answer = Entry(root)
+answer.config(justify = CENTER, relief = SUNKEN,font = 'Nueva 20', width = 10)
+
+answers = ["Yes", "No", "Maybe", "Absolutely"]
+def shake():
+    foreground.move(ball, 50, 20)
+    foreground.move(outline, 50, 20)
+    foreground.move(center, 50, 20)
+
+def shake_two():
+    foreground.move(ball, 90, 50)
+    foreground.move(outline, 90, 50)
+    foreground.move(center, 90, 50)
+
+def left_shake():
+    foreground.move(ball, -55, -22)
+    foreground.move(outline, -55, -22)
+    foreground.move(center, -55, -22)
+
+def ask_question():
+    messagebox.askquestion("Ask", "Are you thinking of your question?")
+    if 'yes':
+        answer.insert(center, answers[a])
+        answer.place(x = 215, y = 260)
+
+
+question = ttk.Button(root, text = 'Question',
+                      command = ask_question).pack(side = BOTTOM,
+                                                   ipady = 5, ipadx = 6)
+    
+    
+
+shakeBall = ttk.Button(root,
+                       text = 'R-Shake', command = shake).pack(side = BOTTOM,
+                                                             ipady = 5, ipadx =6)
+stopBall = ttk.Button(root,
+                      text = 'Left-Shake', command = left_shake).pack(side = BOTTOM,
+                                                          ipady = 5, ipadx = 6)
