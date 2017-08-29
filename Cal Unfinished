@@ -1,0 +1,32 @@
+from tkinter import *
+from tkinter import ttk
+from tkinter.ttk import *
+from tkinter import messagebox
+import math
+import random
+
+root = Tk()
+root.config(background = 'white')
+root.option_add('tearOff', False)
+top = Frame(root)
+top.grid(sticky = N)
+style = ttk.Style(root)
+style.configure('xpnative')
+
+
+
+def help_fun():
+    messagebox.showinfo('Help', 'Help message')
+
+
+
+menu = Menu(root)
+root.config(menu = menu)
+menu.add_command(label = 'Quit', command = root.destroy)
+menu.add_command(label = 'Help', command = help_fun)
+
+screen = Entry(top, textvariable= str )
+screen.focus_set()
+screen.grid(row = 0, column = 1)
+
+mainloop()
