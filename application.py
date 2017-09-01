@@ -21,6 +21,7 @@ number = Entry(root)
 numbers = ['0','1', '2', '3', '4','5','6','7','8','9']
 value = 'n'
 
+
 #commands
 
 def help_fun():
@@ -146,6 +147,21 @@ def nine():
         number.insert(INSERT, value)
         number.place(anchor = NW)
 
+def clear():
+    number.delete(0, END)
+
+def square():
+    global value
+    if value != 'n':
+        number.delete(0, END)
+        value = int(value) * int(value)
+        number.insert(INSERT, value)
+        number.place(anchor = NW)
+    else:
+        number.delete(0, END)
+
+
+
 #Buttons
     
 add = ttk.Button(root, text = '+',
@@ -158,7 +174,7 @@ minus = ttk.Button(root, text = '/',
                    command = help_fun).grid(row = 14, column = 3)
 clear = ttk.Button(root,
                    text = 'Clear',
-                   command = help_fun).grid(row = 16,column= 2,
+                   command = clear).grid(row = 16,column= 2,
                                             columnspan = 2, ipadx = 45)
 one = ttk.Button(root, text = '1',
                  command = one).grid(row = 11, column = 1)
@@ -181,9 +197,9 @@ nine = ttk.Button(root, text = '9',
 zero = ttk.Button(root, text = '0',
                   command = zero).grid(row = 15, column = 2)
 square = ttk.Button(root, text = 'Sqr',
-                  command = nine).grid(row = 15, column = 3)
+                  command = square).grid(row = 15, column = 3)
 pwr = ttk.Button(root, text = 'PWR',
-                  command = nine).grid(row = 16, column = 1)
+                  command = help_fun).grid(row = 16, column = 1)
 
 #style.configure('TButton', foreground = 'red')
 menu = Menu(root)
