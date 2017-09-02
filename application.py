@@ -20,12 +20,13 @@ screen.config(background = 'white', borderwidth = 30)
 number = Entry(root)
 numbers = ['0','1', '2', '3', '4','5','6','7','8','9']
 value = 'n'
+operation = 'n'
 
 
 #commands
 
 def help_fun():
-    messagebox.showinfo('Help', 'Help message')
+    messagebox.showinfo('Help', 'Please use Quit to exit. There is no saving.')
 
 def zero():
     global value
@@ -148,7 +149,9 @@ def nine():
         number.place(anchor = NW)
 
 def clear():
+    global value
     number.delete(0, END)
+    value = 'n'
 
 def square():
     global value
@@ -160,22 +163,108 @@ def square():
     else:
         number.delete(0, END)
 
+def power ():
+    global value
+    if value != 'n':
+        number.delete(0, END)
+        value = value + '^'
+        number.insert(INSERT, value)
+        number.place(anchor = NW)
+    else:
+        number.delete(0, END)
 
+def plus ():
+    global value
+    if value != 'n':
+        number.delete(0, END)
+        value = value + ' + '
+        number.insert(INSERT, value)
+        number.place(anchor = NW)
+    else:
+        number.delete(0, END)
+
+def minus ():
+    global value
+    if value != 'n':
+        number.delete(0, END)
+        value = value + ' - '
+        number.insert(INSERT, value)
+        number.place(anchor = NW)
+    else:
+        number.delete(0, END)
+
+def multi ():
+    global value
+    if value != 'n':
+        number.delete(0, END)
+        value = value + ' x '
+        number.insert(INSERT, value)
+        number.place(anchor = NW)
+    else:
+        number.delete(0, END)
+
+def div ():
+    global value
+    if value != 'n':
+        number.delete(0, END)
+        value = value + ' / '
+        number.insert(INSERT, value)
+        number.place(anchor = NW)
+    else:
+        number.delete(0, END)
+
+def enter():
+    global value
+    if value != 'n':
+        number.delete(0, END)
+        if value.find('+') != -1:
+            num = value.partition('+')
+            result = int(num[0]) + int(num[2])
+            number.insert(INSERT, result)
+            number.place(anchor = NW)
+            value = str(result)
+        elif value.find('-') != -1:
+            num = value.partition('-')
+            result = int(num[0]) - int(num[2])
+            number.insert(INSERT, result)
+            number.place(anchor = NW)
+            value = str(result)
+        elif value.find('x') != -1:
+            num = value.partition('x')
+            result = int(num[0]) * int(num[2])
+            number.insert(INSERT, result)
+            number.place(anchor = NW)
+            value = str(result)
+        elif value.find('/') != -1:
+            num = value.partition('/')
+            result = int(num[0]) / int(num[2])
+            number.insert(INSERT, result)
+            number.place(anchor = NW)
+            value = str(result)
+        elif value.find('^') != -1:
+            num = value.partition('^')
+            result = int(num[0]) ** int(num[2])
+            number.insert(INSERT, result)
+            number.place(anchor = NW)
+            value = str(result)
+        else:
+            number.delete(0, END)
+    else:
+        number.delete(0, END)
 
 #Buttons
     
 add = ttk.Button(root, text = '+',
-                 command = help_fun).grid(row = 11, column = 3)
+                 command = plus).grid(row = 11, column = 3)
 minus = ttk.Button(root, text = '-',
-                   command = help_fun).grid(row = 12, column = 3)
+                   command = minus).grid(row = 12, column = 3)
 multi = ttk.Button(root, text = 'x',
-                   command = help_fun).grid(row = 13, column = 3)
+                   command = multi).grid(row = 13, column = 3)
 minus = ttk.Button(root, text = '/',
-                   command = help_fun).grid(row = 14, column = 3)
+                   command = div).grid(row = 14, column = 3)
 clear = ttk.Button(root,
                    text = 'Clear',
-                   command = clear).grid(row = 16,column= 2,
-                                            columnspan = 2, ipadx = 45)
+                   command = clear).grid(row = 16,column= 2)
 one = ttk.Button(root, text = '1',
                  command = one).grid(row = 11, column = 1)
 two = ttk.Button(root, text = '2',
@@ -199,8 +288,9 @@ zero = ttk.Button(root, text = '0',
 square = ttk.Button(root, text = 'Sqr',
                   command = square).grid(row = 15, column = 3)
 pwr = ttk.Button(root, text = 'PWR',
-                  command = help_fun).grid(row = 16, column = 1)
-
+                  command = power).grid(row = 16, column = 1)
+enter = ttk.Button(root, text = 'Enter',
+                  command = enter).grid(row = 16, column = 3)
 #style.configure('TButton', foreground = 'red')
 menu = Menu(root)
 root.config(menu = menu)
