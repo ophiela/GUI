@@ -2,7 +2,6 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import font
 from tkinter.ttk import *
-#from functools import partial
 
 root = Tk()
 root.option_add('*tearOff', False)
@@ -14,7 +13,8 @@ Color = Menu(menu)
 Size = Menu(menu)
 doc = Text(root)
 doc.place(anchor = NW)
-
+default_font = font.Font(family = 'Times', size = 12)
+doc.config(font = default_font)
 
 #Commands
 def color_red():
@@ -30,33 +30,30 @@ def color_black():
     doc.config(foreground = 'black')
 
 def font_nueva():
-    doc.config(font = 'Nueva')
+    default_font.configure(family = 'Neuva')
 
 def font_ver():
-    doc.config(font = 'Verdana')
+    default_font.configure(family = 'Verdana')
 
 def font_courier():
-    doc.config(font = 'Courier')
+    default_font.configure(family = 'Courier')
 
-def font_times():
-    doc.config(font = 'Times')
+def font_sys():
+    default_font.configure(family = 'System')
 
 def font_italic():
-    italic = font.Font(slant = 'italic')
-    doc.config(font = italic)
+    default_font.configure(slant = 'italic')
 
 def font_roman():
-    roman = font.Font(slant = 'roman')
-    doc.config(font = roman)
+    default_font.configure(slant = 'roman')
 
 def font_15():
-    s15 = font.Font(size = 15)
-    doc.config(font = s15)
+    default_font.configure(size = 15)
+
 
 def font_20():
-    s20 = font.Font(size = 20)
-    doc.config(font = s20)
-#    doc.config()
+    default_font.configure(size = 20)   
+
 
 menu.add_cascade(menu = Font, label = 'Font')
 menu.add_cascade(menu = Color, label = 'Color')
@@ -66,7 +63,7 @@ Size.add_command(label = '20', command = font_20)
 Font.add_command(label = 'Nueva', command = font_nueva)
 Font.add_command(label = 'Verdana', command = font_ver)
 Font.add_command(label = 'Courier', command = font_courier)
-Font.add_command(label = 'Times', command = font_times)
+Font.add_command(label = 'System', command = font_sys)
 Font.add_command(label = 'Italic', command = font_italic)
 Font.add_command(label = 'Roman', command = font_roman)
 Color.add_command(label = 'Red', command = color_red)
