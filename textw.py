@@ -7,14 +7,18 @@ root = Tk()
 root.option_add('*tearOff', False)
 menu = Menu(root)
 root.config(menu = menu)
+root.geometry('645x450')
 Quit = menu.add_command(label = 'Quit', command = root.destroy)
 Font = Menu(menu)
 Color = Menu(menu)
 Size = Menu(menu)
+Space = Menu(menu)
 doc = Text(root)
+doc.pack(padx = 20)
 doc.place(anchor = NW)
 default_font = font.Font(family = 'Times', size = 12)
 doc.config(font = default_font)
+
 
 #Commands
 def color_red():
@@ -50,16 +54,31 @@ def font_roman():
 def font_15():
     default_font.configure(size = 15)
 
-
 def font_20():
-    default_font.configure(size = 20)   
+    default_font.configure(size = 20)
 
+def font_30():
+    default_font.configure(size = 30)
+
+def space_single():
+    doc.config(spacing1 = 2)
+
+def space_double():
+    doc.config(spacing1 = 4)
+
+def space_default():
+    doc.config(spacing1 = 0)
 
 menu.add_cascade(menu = Font, label = 'Font')
 menu.add_cascade(menu = Color, label = 'Color')
 menu.add_cascade(menu = Size, label = 'Size')
+menu.add_cascade(menu= Space, label= 'Space')
 Size.add_command(label = '15', command = font_15)
 Size.add_command(label = '20', command = font_20)
+Size.add_command(label = '30', command = font_30)
+Space.add_command(label = 'Single', command = space_single)
+Space.add_command(label = 'Double', command = space_double)
+Space.add_command(label = 'Default', command = space_default)
 Font.add_command(label = 'Nueva', command = font_nueva)
 Font.add_command(label = 'Verdana', command = font_ver)
 Font.add_command(label = 'Courier', command = font_courier)
