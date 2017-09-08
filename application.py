@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter.ttk import *
 from tkinter import messagebox
+from tkinter import font
 import math
 import random
 
@@ -10,14 +11,17 @@ import random
 root = Tk()
 root.config(background = 'white')
 root.option_add('tearOff', False)
+root.geometry('264x280')
 top = Frame(root)
 top.grid(sticky = N, column = 2)
 style = ttk.Style(root)
 style.configure('xpnative')
-screen = Canvas(root, height = 100, width = 200)
+screen = Canvas(root, height = 30, width = 200)
 screen.grid(row = 0,column = 1, sticky = N, columnspan = 3)
 screen.config(background = 'white', borderwidth = 30)
 number = Entry(root)
+number.config(justify = CENTER, width = 26)
+number.config(font = 'Times 15')
 numbers = ['0','1', '2', '3', '4','5','6','7','8','9']
 value = 'n'
 operation = 'n'
