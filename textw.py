@@ -13,6 +13,7 @@ Font = Menu(menu)
 Color = Menu(menu)
 Size = Menu(menu)
 Space = Menu(menu)
+Erase = Menu(menu)
 doc = Text(root)
 doc.pack(padx = 20)
 doc.place(anchor = NW)
@@ -26,6 +27,9 @@ def color_red():
 
 def color_blue():
     doc.config(foreground = 'blue')
+
+def color_green():
+    doc.config(foreground = 'green')
 
 def color_orange():
     doc.config(foreground = 'orange')
@@ -69,10 +73,14 @@ def space_double():
 def space_default():
     doc.config(spacing1 = 0)
 
+def erase_text():
+    doc.delete(1.0,END)
+
 menu.add_cascade(menu = Font, label = 'Font')
 menu.add_cascade(menu = Color, label = 'Color')
 menu.add_cascade(menu = Size, label = 'Size')
 menu.add_cascade(menu= Space, label= 'Space')
+menu.add_cascade(menu= Erase, label= 'Erase')
 Size.add_command(label = '15', command = font_15)
 Size.add_command(label = '20', command = font_20)
 Size.add_command(label = '30', command = font_30)
@@ -87,5 +95,7 @@ Font.add_command(label = 'Italic', command = font_italic)
 Font.add_command(label = 'Roman', command = font_roman)
 Color.add_command(label = 'Red', command = color_red)
 Color.add_command(label = 'Blue', command = color_blue)
+Color.add_command(label = 'Green', command = color_green)
 Color.add_command(label = 'Orange', command = color_orange)
 Color.add_command(label = 'Black', command = color_black)
+Erase.add_command(label = 'Erase', command = erase_text)
