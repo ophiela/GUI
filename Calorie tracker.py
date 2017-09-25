@@ -18,6 +18,13 @@ goal.insert(INSERT, 'Calorie Goal')
 def get_help():
     messagebox.showinfo('Help', 'Please enter the number of steps walked')
 
+def clear_step(event):
+    steps.delete(0, END)
+
+def clear_goal(event):
+    goal.delete(0, END)
+    
+
 def step_cal():
     value = steps.get()
     steps.delete(0, END)
@@ -39,6 +46,9 @@ label_text = Label(root, text = 'Calorie Counter',
 cal = ttk.Button(root, text = 'Calculate',
                  command = step_cal).grid(row = 4,
                                           column = 0, columnspan = 3)
+steps.bind('<Button-1>', clear_step)
+goal.bind('<Button-1>', clear_goal)
+root.bind()
 menu = Menu(root)
 root.config(menu = menu)
 menu.add_command(label = 'Quit', command = root.destroy)
